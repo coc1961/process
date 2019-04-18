@@ -49,10 +49,9 @@ func main() {
 
 	//Init process
 	person := &Person{Name: "Name", Age: 20}
-	proc.Start(person)
 
 	//Execute the process
-	if proc.RunAll().Error() != nil {
+	if proc.Start(person).RunAll().Error() != nil {
 		//there are mistakes?
 		fmt.Println(proc.Error())
 	} else {

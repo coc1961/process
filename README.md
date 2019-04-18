@@ -9,11 +9,11 @@ This framework has the purpose of simplifying the execution of processes and the
 > Description
 
  this framework allows to define a process as a set of steps that are executed until one of them fails. If one step fails the rest of the steps are not invoked
- 
+
 
  > Example
 
- This Code
+ This Code (without using process)
 
 ```Go
 func main() {
@@ -53,11 +53,10 @@ func main() {
 
 	//Init process
 	person := &Person{Name: "Name", Age: 20}
-	proc.Start(person)
 
     //Execute the process
     //RullAll execute Validate,Create and Audit
-	if proc.RunAll().Error() != nil {
+	if proc.Start(person).RunAll().Error() != nil {
 		//there are mistakes?
 		fmt.Println(proc.Error())
 	} else {
