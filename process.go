@@ -3,6 +3,8 @@ package process
 import (
 	"errors"
 	"fmt"
+
+	gerrors "github.com/go-errors/errors"
 )
 
 //Context process context
@@ -63,6 +65,7 @@ func safeExecute(step Step, ctx Context) (ret interface{}, err error) {
 			if err, ok = r.(error); !ok {
 				err = errors.New(fmt.Sprint("Step Error", step, r))
 			}
+			fmt.Println(gerrors.Wrap(err, 2).ErrorStack())
 			return
 		}
 	}()
