@@ -57,10 +57,10 @@ func main() {
     //Execute the process
     //RullAll execute Validate,Create and Audit
 	if proc.Start(person).RunAll().Error() != nil {
-		//there are mistakes?
+		//errors?
 		fmt.Println(proc.Error())
 	} else {
-		//Process finish Ok
+		//Ok!!!
 		person := proc.Result().(*Person)
 		fmt.Println(person)
 	}
