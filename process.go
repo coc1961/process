@@ -1,5 +1,10 @@
 package process
 
+import (
+	"errors"
+	"fmt"
+)
+
 //Context process context
 type Context interface{}
 
@@ -43,10 +48,26 @@ func (p *Process) Next() bool {
 //RunStep run step
 func (p *Process) RunStep() *Process {
 	if p.Next() && p.Error() == nil {
-		p.result, p.err = p.steps[p.actualStep](p.ctx)
+		//p.result, p.err = p.steps[p.actualStep](p.ctx)
+		p.result, p.err = safeExecute(p.steps[p.actualStep], p.ctx)
 	}
 	p.actualStep++
 	return p
+}
+
+func safeExecute(step Step, ctx Context) (ret interface{}, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			ret = nil
+			var ok bool
+			if err, ok = r.(error); !ok {
+				err = errors.New(fmt.Sprint("Step Error", step, r))
+			}
+			return
+		}
+	}()
+	ret, err = step(ctx)
+	return ret, err
 }
 
 //RunAll run all step
