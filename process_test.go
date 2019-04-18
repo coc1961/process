@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/coc1961/process"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestProcess_OkTest(t *testing.T) {
@@ -22,12 +23,12 @@ func TestProcess_OkTest(t *testing.T) {
 
 	result := proc.Result()
 
-	//assert.NoError(t, proc.Error())
-	//assert.Equal(t, 3, result.(int))
+	_ = result
+	assert.NoError(t, proc.Error())
+	assert.Equal(t, 3, result.(int))
 
 }
 
-/*
 func TestProcess_TestWIthError(t *testing.T) {
 
 	ctx := 0
@@ -46,10 +47,9 @@ func TestProcess_TestWIthError(t *testing.T) {
 	assert.Equal(t, 1, result.(int))
 
 }
-*/
 
 func Step1(ctx process.Context) (interface{}, error) {
-	_ = ctx.(int)
+	//_ = ctx.(int)
 
 	sCtx := ctx.(*int)
 	*sCtx++
