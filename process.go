@@ -50,7 +50,6 @@ func (p *Process) Next() bool {
 //RunStep run step
 func (p *Process) RunStep() *Process {
 	if p.Next() && p.Error() == nil {
-		//p.result, p.err = p.steps[p.actualStep](p.ctx)
 		p.result, p.err = safeExecute(p.steps[p.actualStep], p.ctx)
 	}
 	p.actualStep++

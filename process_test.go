@@ -43,8 +43,6 @@ func TestProcess_TestWIthError(t *testing.T) {
 }
 
 func Step1(ctx process.Context) (interface{}, error) {
-	//_ = ctx.(int)
-
 	sCtx := ctx.(*int)
 	*sCtx++
 	fmt.Println("Step1 context", *sCtx)
