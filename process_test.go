@@ -18,10 +18,7 @@ func TestProcess_OkTest(t *testing.T) {
 	proc.AddStep(Step2)
 	proc.AddStep(Step3)
 
-	proc.Start(&ctx)
-	proc.RunAll()
-
-	result := proc.Result()
+	result := proc.Start(&ctx).RunAll().Result()
 
 	_ = result
 	assert.NoError(t, proc.Error())
@@ -39,10 +36,7 @@ func TestProcess_TestWIthError(t *testing.T) {
 	proc.AddStep(Step2)
 	proc.AddStep(Step3)
 
-	proc.Start(&ctx)
-	proc.RunAll()
-
-	result := proc.Result()
+	result := proc.Start(&ctx).RunAll().Result()
 	assert.Error(t, proc.Error())
 	assert.Equal(t, 1, result.(int))
 
